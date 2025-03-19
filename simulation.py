@@ -7,9 +7,15 @@ import time
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self):
+    def __init__(self, directOrGUI):
 
-        physicsClient = p.connect(p.GUI)
+        if directOrGUI == "GUI":
+            self.physicsClient = p.connect(p.GUI)
+            self.GUI = True
+        else:
+            self.physicsClient = p.connect(p.DIRECT)
+            self.GUI = False
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         p.setGravity(0,0,-9.8)
@@ -24,7 +30,8 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(t)
     
-            time.sleep(c.step)
+            if self.GUI == True:
+                time.sleep(c.step)
             
     def Save_Values(self):
         np.save("FrontLegSensorValues.npy", frontLegSensorValues)
@@ -32,6 +39,9 @@ class SIMULATION:
         np.save("SinWave.npy", sinWaveVector)
         np.save("MotorCommandsFrontLeg.npy", motorCommandsFrontLeg)
         np.save("MotorCommandsBackLeg.npy", motorCommandsBackLeg)
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
         
     def __del__(self):
         p.disconnect()

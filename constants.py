@@ -1,6 +1,6 @@
 import numpy as np
 
-step = 1/10
+step = 1/200
 num_steps = 1000
 
 amplitudeFrontLeg = np.pi / 4  
@@ -11,3 +11,4 @@ amplitudeBackLeg = np.pi / 4
 frequencyBackLeg = 8
 phaseOffsetBackLeg = - np.pi / 2
 
+numberOfGenerations = 10
