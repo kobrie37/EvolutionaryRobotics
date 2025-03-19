@@ -19,9 +19,12 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
         p.setGravity(0,0,-9.8)
+
+        p.loadSDF("world.sdf")
+        self.planeId = p.loadURDF("plane.urdf")
         
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(2,2)
 
     def Run(self):
         for t in range(c.num_steps):
