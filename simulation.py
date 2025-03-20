@@ -24,7 +24,7 @@ class SIMULATION:
         self.planeId = p.loadURDF("plane.urdf")
         
         self.world = WORLD()
-        self.robot = ROBOT(2,2)
+        self.robot = ROBOT(2, 2)
 
     def Run(self):
         for t in range(c.num_steps):
