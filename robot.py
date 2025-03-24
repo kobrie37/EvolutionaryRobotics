@@ -9,7 +9,7 @@ from pyrosim.neuralNetwork import NEURAL_NETWORK
 class ROBOT:
     def __init__(self):
 
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF("body.urdf") 
 
         pyrosim.Prepare_To_Simulate(self.robotId)
 
@@ -40,7 +40,17 @@ class ROBOT:
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(self.robotId,desiredAngle)
             
-    def Think(self):
+    def Think(self, t):
         self.nn.Update()
-        self.nn.Print()
+        #self.nn.Print()
+
+    def Get_Fitness(self):
+        stateOfLinkZero = p.getLinkState(self.robotId,0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        f = open("fitness.txt", "w")
+        f.write(str(xCoordinateOfLinkZero))
+        f.close()
+        
+        
         

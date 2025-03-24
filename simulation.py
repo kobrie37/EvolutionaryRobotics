@@ -7,11 +7,17 @@ import time
 import pybullet_data
 
 class SIMULATION:
-    def __init__(self):
+    def __init__(self, directOrGUI):
 
-        physicsClient = p.connect(p.GUI)
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+            self.GUI = False
+        else:
+            self.physicsClient = p.connect(p.GUI)
+            self.GUI = True
+            
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
+        p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
         p.setGravity(0,0,-9.8)
         
         self.world = WORLD()
@@ -21,10 +27,11 @@ class SIMULATION:
         for t in range(c.num_steps):
             p.stepSimulation()
             self.robot.Sense(t)
-            self.robot.Think()
+            self.robot.Think(t)
             self.robot.Act(t)
     
             time.sleep(c.step)
+    
             
     def Save_Values(self):
         np.save("FrontLegSensorValues.npy", frontLegSensorValues)
@@ -35,4 +42,7 @@ class SIMULATION:
         
     def __del__(self):
         p.disconnect()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
         
