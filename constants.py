@@ -1,7 +1,7 @@
 import numpy as np
 
-step = 1/10
-num_steps = 100
+step = 1/100
+num_steps = 250
 
 amplitudeFrontLeg = np.pi / 4  
 frequencyFrontLeg = 8  

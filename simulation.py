@@ -30,7 +30,8 @@ class SIMULATION:
             self.robot.Think(t)
             self.robot.Act(t)
     
-            time.sleep(c.step)
+            if self.GUI == True:
+                time.sleep(c.step)
     
             
     def Save_Values(self):
