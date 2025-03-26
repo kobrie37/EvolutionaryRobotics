@@ -46,10 +46,6 @@ def Get_Touch_Sensor_Value_For_Link(linkName):
 
     touchValue = -1.0
 
-    if linkName not in linkNamesToIndices:
-        print("Error: Link name not found in dictionary:", linkName)
-        print("Available links:", linkNamesToIndices.keys())
-        
     desiredLinkIndex = linkNamesToIndices[linkName]
 
     pts = p.getContactPoints()
@@ -88,8 +84,7 @@ def Prepare_Link_Dictionary(bodyID):
 
            rootLinkName = jointName[0]
 
-           linkNamesToIndices[rootLinkName] = -1
-
+           linkNamesToIndices[rootLinkName] = -1 
 
 def Prepare_Joint_Dictionary(bodyID):
 
@@ -139,11 +134,11 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Joint(name,parent,child,type,position):
+def Send_Joint(name,parent,child,type,position,jointAxis):
 
     joint = JOINT(name,parent,child,type,position)
 
-    joint.Save(f)
+    joint.Save(f,jointAxis)
 
 def Send_Motor_Neuron(name,jointName):
 

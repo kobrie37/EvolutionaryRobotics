@@ -1,4 +1,6 @@
 import math
+from multiprocessing import allow_connection_pickling
+from re import A
 
 import pybullet
 
@@ -121,7 +123,7 @@ class NEURON:
     def Threshold(self):
 
         self.value = math.tanh(self.value)
-
+        
     def Update_Sensor_Neuron(self):
         self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
         
